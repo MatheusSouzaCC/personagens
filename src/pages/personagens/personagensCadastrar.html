@@ -1,0 +1,46 @@
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nome</ion-label>
+      <ion-input [(ngModel)]="personagem.nome" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Universo</ion-label>
+      <ion-input [(ngModel)]="personagem.universo" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-input [(ngModel)]="personagem.descricao" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <br>
+      <h3><ion-icon name="image"></ion-icon> Imagem</h3>
+      <ion-card>
+        <img *ngIf="personagem.base64 !== 'assets/img/semFoto.jpg' && personagem.base64" [src]="personagem.base64">
+        <img *ngIf="personagem.base64 === 'assets/img/semFoto.jpg' || personagem.base64 == undefined || personagem.base64 == null" [src]="'assets/img/semFoto.jpg'">
+          <ion-card-content>
+              <button (click)="escolherImagem()" color='dark' outline ion-button small icon-left>
+                  <ion-icon name="folder"></ion-icon> Escolher
+                </button>
+                <button (click)="tirarFoto()" color='primary' outline ion-button small icon-left>
+                    <ion-icon name="camera"></ion-icon> Tirar foto
+                  </button>
+          </ion-card-content>
+        </ion-card>              
+    </ion-item>
+    <br>
+  </ion-list>
+  <ion-fab bottom right>
+    <button color="secondary" (click)="cadastrar()" ion-fab>
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab bottom left>
+    <button color="light" (click)="cancelar()" ion-fab>
+      <ion-icon color="danger" name="close"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

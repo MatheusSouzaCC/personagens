@@ -1,0 +1,23 @@
+
+<ion-content padding>
+  
+  <ion-list>
+    <button (click)="editarPersonagem(p)" ion-item *ngFor="let p of personagens">
+      <ion-avatar item-start>
+        <img *ngIf="p.base64 !== 'assets/img/semFoto.jpg' && p.base64" [src]="'data:image;base64,' + p.base64 | safeHtml">
+        <img *ngIf="p.base64 === 'assets/img/semFoto.jpg' || p.base64 == undefined || p.base64 == null" [src]="'assets/img/semFoto.jpg'">
+      </ion-avatar>
+      <h2>{{p.nome}}</h2>
+      <h3>{{p.universo}}</h3>
+      <p>{{p.descricao}}</p>
+      <button (click)="deletarPersonagem(p,$event)" color='danger' style="z-index: 1000;width:35px;height:35px" ion-button icon-only outline  item-end>
+        <ion-icon  name="trash"></ion-icon>
+      </button>
+    </button>    
+  </ion-list>
+
+
+  <ion-fab bottom right>
+    <button (click)="cadastrarPersonagem()" ion-fab><ion-icon name="person-add"></ion-icon></button>
+  </ion-fab>
+</ion-content>
