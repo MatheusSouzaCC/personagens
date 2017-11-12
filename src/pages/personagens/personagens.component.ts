@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { NavController, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { PersonagensCadastroPage } from '../personagens/personagensCadastrar.component';
 import { PersonagemService } from '../../providers/personagem-service/personagem.service';
@@ -15,7 +15,7 @@ import { Personagem } from '../../models/personagens/personagem.model';
   .item-md {padding-left: 0px;}
   `]
 })
-export class PersonagensPage implements OnInit {
+export class PersonagensPage {
   personagens: Personagem[];
   loading: any;
 
@@ -28,11 +28,8 @@ export class PersonagensPage implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loading.present();
-  }
-
   ionViewDidLoad() {
+    this.loading.present();
     this.personagemService.getPersonagens()
       .then((personagens: Personagem[]) => {
         this.personagens = personagens;

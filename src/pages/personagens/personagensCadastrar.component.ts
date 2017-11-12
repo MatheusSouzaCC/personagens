@@ -10,12 +10,13 @@ import { File } from '@ionic-native/file';
 @Component({
   selector: 'page-personagensCadastrar',
   templateUrl: 'personagensCadastrar.html'
+
 })
 export class PersonagensCadastroPage {
 
   personagem: Personagem;
   cameraOptions: CameraOptions = {
-    quality: 100,
+    quality: 50,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
@@ -29,11 +30,18 @@ export class PersonagensCadastroPage {
     private camera: Camera,
     private file: File) {
     if (this.navParams.get("personagem")) {
-      this.personagem = this.navParams.get("personagem");
+      let p = this.navParams.get("personagem");
+      this.personagem = new Personagem();
+      this.personagem.nome = p.nome;
+      this.personagem.descricao = p.descricao;
+      this.personagem.universo = p.universo;
+      this.personagem._id = p._id;
+      this.personagem._rev = p._rev;
+      this.personagem._attachments = p._attachments;
+      this.personagem.base64 = p.base64;
     } else {
       this.personagem = new Personagem();
     }
-
 
   }
   public cancelar() {
@@ -103,12 +111,24 @@ export class PersonagensCadastroPage {
 
   public tirarFoto() {
     this.camera.getPicture(this.cameraOptions).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
+
       let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.personagem.base64 = base64Image;
+      this.personagem._attachments = {
+        "foto.jpeg": {
+          content_type: 'image/jpeg',
+          data: imageData
+        }
+      };
+
     }, (err) => {
-      // Handle error
+      alert("Não foi possível processar a imagem");
     });
+  }
+
+  public removerImagem() {
+    this.personagem.base64 = 'assets/img/semFoto.jpg';
+    this.personagem._attachments = {};
   }
 
 }

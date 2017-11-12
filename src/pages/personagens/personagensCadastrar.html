@@ -16,19 +16,36 @@
     </ion-item>
     <ion-item>
       <br>
-      <h3><ion-icon name="image"></ion-icon> Imagem</h3>
       <ion-card>
-        <img *ngIf="personagem.base64 !== 'assets/img/semFoto.jpg' && personagem.base64" [src]="personagem.base64">
-        <img *ngIf="personagem.base64 === 'assets/img/semFoto.jpg' || personagem.base64 == undefined || personagem.base64 == null" [src]="'assets/img/semFoto.jpg'">
-          <ion-card-content>
-              <button (click)="escolherImagem()" color='dark' outline ion-button small icon-left>
-                  <ion-icon name="folder"></ion-icon> Escolher
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <ion-icon name="image"></ion-icon> Imagem
+              </ion-col>
+              <ion-col col-6>
+                <button id="removerImagem" color="dark" style="float:right" (click)="removerImagem()" ion-button icon-only clear small>
+                  <ion-icon name="close"></ion-icon>
                 </button>
-                <button (click)="tirarFoto()" color='primary' outline ion-button small icon-left>
-                    <ion-icon name="camera"></ion-icon> Tirar foto
-                  </button>
-          </ion-card-content>
-        </ion-card>              
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+        <img *ngIf="personagem.base64 !== 'assets/img/semFoto.jpg' && personagem.base64 && personagem.base64.indexOf('data:') < 0 "
+          [src]="'data:image;base64,' + personagem.base64 | safeHtml">
+        <img *ngIf="personagem.base64 !== 'assets/img/semFoto.jpg' && personagem.base64 && personagem.base64.indexOf('data:') >= 0 "
+          [src]="personagem.base64">
+        <img *ngIf="personagem.base64 === 'assets/img/semFoto.jpg' || personagem.base64 == undefined || personagem.base64 == null"
+          [src]="'assets/img/semFoto.jpg'">
+        <ion-card-content>
+          <button (click)="escolherImagem()" color='dark' outline ion-button small icon-left>
+            <ion-icon name="folder"></ion-icon> Escolher
+          </button>
+          <button (click)="tirarFoto()" color='primary' outline ion-button small icon-left>
+            <ion-icon name="camera"></ion-icon> Tirar foto
+          </button>
+        </ion-card-content>
+      </ion-card>
     </ion-item>
     <br>
   </ion-list>

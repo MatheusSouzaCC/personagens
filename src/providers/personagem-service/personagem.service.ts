@@ -27,6 +27,14 @@ export class PersonagemService {
  
   }
  
+  private presentToast(msg,duration) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: duration
+    });
+    toast.present();
+  }
+
   getPersonagens() {
     if (this.data) {      
       return Promise.resolve(this.data);
@@ -51,6 +59,7 @@ export class PersonagemService {
           personagem.descricao = row.doc.descricao;
           personagem.nome = row.doc.nome;
           personagem.universo = row.doc.universo;
+          personagem._attachments = row.doc._attachments;
           
           if(row.doc._attachments){
             var fileName = Object.keys(row.doc._attachments)[0];
@@ -104,6 +113,7 @@ export class PersonagemService {
     personagem.descricao = change.doc.descricao;
     personagem.nome = change.doc.nome;
     personagem.universo = change.doc.universo;
+    personagem._attachments = change.doc._attachments;
 
     if(change.doc._attachments){
       var fileName = Object.keys(change.doc._attachments)[0];
@@ -140,6 +150,7 @@ export class PersonagemService {
       }
    
     }
+    this.presentToast("Dados atualizados",2000);
   }
  
 }
