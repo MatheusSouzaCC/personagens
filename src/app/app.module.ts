@@ -33,7 +33,9 @@ import { File } from '@ionic-native/file';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      urlbd: "http://192.168.0.103:5984/personagens"
+    }),
     SuperTabsModule.forRoot()
   ],
   bootstrap: [IonicApp],

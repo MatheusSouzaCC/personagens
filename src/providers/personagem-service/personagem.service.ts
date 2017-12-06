@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
 import {Personagem} from '../../models/personagens/personagem.model';
-import {ToastController } from 'ionic-angular'; 
+import {ToastController } from 'ionic-angular';
+import {Config} from 'ionic-angular';
+import { Events } from 'ionic-angular';
+
 
 @Injectable()
 export class PersonagemService {
@@ -10,11 +13,16 @@ export class PersonagemService {
   db: any;
   remote: any;
  
-  constructor(public toastCtrl: ToastController) {
+  constructor(public toastCtrl: ToastController, public config: Config,public events: Events) {
+
+    events.subscribe('user:created', (url) => {
+      this.remote = url;
+      alert(url);     
+    });
  
     this.db = new PouchDB('personagens');
  
-    this.remote = 'http://192.168.0.109:5984/personagens';
+    this.remote = this.config.get('urlbd');
  
     let options = {
       live: true,

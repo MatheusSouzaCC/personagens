@@ -1,4 +1,23 @@
 
 <ion-content padding>
   <button (click)="limparBase()" color='danger' ion-button icon-left><ion-icon name="alert"></ion-icon> Limpar base local</button>
+  <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>URl Banco</ion-label>
+                    <ion-input [(ngModel)]="Url" type="text"></ion-input>
+                  </ion-item>
+            </ion-list>
+        </ion-col>
+       
+      </ion-row>
+      <ion-row>
+          <ion-col col-12>
+              <button (click)="alterarURLDataBase()" color='primary' ion-button>Salvar configurações</button>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+ 
 </ion-content>
